@@ -1,4 +1,4 @@
-package com.seif.dictionarycomposeapp.ui.theme
+package com.seif.dictionarycomposeapp.presentation.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
