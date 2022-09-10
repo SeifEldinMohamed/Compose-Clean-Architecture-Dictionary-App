@@ -1,5 +1,6 @@
 package com.seif.dictionarycomposeapp.data
 
+import com.seif.dictionarycomposeapp.data.local.entity.WordInfoEntity
 import com.seif.dictionarycomposeapp.data.remote.dto.DefinitionDto
 import com.seif.dictionarycomposeapp.data.remote.dto.MeaningDto
 import com.seif.dictionarycomposeapp.data.remote.dto.WordInfoDto
@@ -27,7 +28,16 @@ fun WordInfoDto.toWordInfo(): WordInfo {
     return WordInfo(
         meanings = meanings.map { it.toMeaning() },
         phonetic = phonetic,
-        sourceUrls  = sourceUrls,
+        sourceUrls = sourceUrls,
+        word = word
+    )
+}
+
+fun WordInfoEntity.toWordInfo(): WordInfo {
+    return WordInfo(
+        meanings = meanings,
+        phonetic = phonetic,
+        sourceUrls = sourceUrls,
         word = word
     )
 }
