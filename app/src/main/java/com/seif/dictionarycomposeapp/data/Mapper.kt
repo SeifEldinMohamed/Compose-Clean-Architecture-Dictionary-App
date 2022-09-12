@@ -28,7 +28,6 @@ fun WordInfoDto.toWordInfo(): WordInfo {
     return WordInfo(
         meanings = meanings.map { it.toMeaning() },
         phonetic = phonetic,
-        sourceUrls = sourceUrls,
         word = word
     )
 }
@@ -37,7 +36,6 @@ fun WordInfoEntity.toWordInfo(): WordInfo {
     return WordInfo(
         meanings = meanings,
         phonetic = phonetic,
-        sourceUrls = sourceUrls,
         word = word
     )
 }

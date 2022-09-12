@@ -8,6 +8,5 @@ data class WordInfoEntity(
     val id: Int,
     val word:String,
     val phonetic: String,
-    val sourceUrls: List<String>,
     val meanings:List<Meaning>
 )
