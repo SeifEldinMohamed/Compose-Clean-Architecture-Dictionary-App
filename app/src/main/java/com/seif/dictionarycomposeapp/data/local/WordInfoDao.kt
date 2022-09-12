@@ -7,10 +7,10 @@ import com.seif.dictionarycomposeapp.data.local.entity.WordInfoEntity
 interface WordInfoDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertWordInfo(wordInfoList: List<WordInfoEntity>)
+    suspend fun insertWordInfoList(wordInfoList: List<WordInfoEntity>)
 
     @Query("DELETE FROM WordInfoEntity WHERE word IN(:words)")
-    suspend fun deleteWordsInfo(words: List<String>)
+    suspend fun deleteWordsInfoList(words: List<String>)
 
 
     @Query("SELECT * FROM WordInfoEntity WHERE word LIKE '%' || :word || '%'") //
