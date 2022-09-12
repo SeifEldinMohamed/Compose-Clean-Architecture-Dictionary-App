@@ -32,6 +32,15 @@ fun WordInfoDto.toWordInfo(): WordInfo {
     )
 }
 
+fun WordInfoDto.toWordInfoEntity(): WordInfoEntity {
+    return WordInfoEntity(
+        meanings = meanings.map { it.toMeaning() },
+        phonetic = phonetic,
+        id = 0,
+        word = word
+    )
+}
+
 fun WordInfoEntity.toWordInfo(): WordInfo {
     return WordInfo(
         meanings = meanings,
