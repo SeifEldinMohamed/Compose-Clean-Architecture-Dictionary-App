@@ -17,7 +17,7 @@ class DictionaryRepositoryImp @Inject constructor(
     private val localDataSource: LocalDataSource,
     private val remoteDataSource: RemoteDataSource
 ) : DictionaryRepository {
-    override suspend fun fetchForWordInfo(word: String): Flow<Resource<List<WordInfo>>> {
+    override  fun fetchForWordInfo(word: String): Flow<Resource<List<WordInfo>>> {
         return networkBoundResource(
             query = {
                 flow { localDataSource.getWordInfoList(word).map { it.toWordInfo() } }
