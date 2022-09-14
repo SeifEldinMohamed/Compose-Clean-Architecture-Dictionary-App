@@ -6,7 +6,7 @@ import com.seif.dictionarycomposeapp.domain.repository.DictionaryRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
-class GetWordInfoUseCase(
+class FetchWordInfoUseCase(
     private val repository: DictionaryRepository
 ) {
     operator fun invoke(word: String): Flow<Resource<List<WordInfo>>> {
