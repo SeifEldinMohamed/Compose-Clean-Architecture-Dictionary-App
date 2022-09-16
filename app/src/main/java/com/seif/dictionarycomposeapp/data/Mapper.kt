@@ -44,7 +44,7 @@ fun WordInfoDto.toWordInfoEntity(): WordInfoEntity {
 fun WordInfoEntity.toWordInfo(): WordInfo {
     return WordInfo(
         meanings = meanings,
-        phonetic = phonetic,
+        phonetic = phonetic ?: "",
         word = word
     )
 }

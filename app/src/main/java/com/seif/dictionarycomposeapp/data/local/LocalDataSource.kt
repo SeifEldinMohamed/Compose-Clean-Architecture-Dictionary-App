@@ -8,7 +8,7 @@ import javax.inject.Inject
 class LocalDataSource @Inject constructor(
     private val dao: WordInfoDao
 ) {
-    private suspend fun insertWordInfoList(wordInfoList: List<WordInfoEntity>) {
+     suspend fun insertWordInfoList(wordInfoList: List<WordInfoEntity>) {
         dao.insertWordInfoList(wordInfoList)
     }
 

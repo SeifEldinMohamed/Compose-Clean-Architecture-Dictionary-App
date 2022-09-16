@@ -9,6 +9,6 @@ data class WordInfoEntity(
     @PrimaryKey
     val id: Int,
     val word:String,
-    val phonetic: String,
+    val phonetic: String?,
     val meanings:List<Meaning>
 )

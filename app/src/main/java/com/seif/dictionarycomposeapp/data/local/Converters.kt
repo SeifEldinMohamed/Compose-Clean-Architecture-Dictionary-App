@@ -21,7 +21,7 @@ class Converters(
     fun toMeaningsJson(meanings:List<Meaning>): String {
         return jsonParser.toJson(
             meanings,
-            object : TypeToken<String>(){}.type
+            object : TypeToken<ArrayList<Meaning>>(){}.type
         ) ?: "[]"
     }
 }
