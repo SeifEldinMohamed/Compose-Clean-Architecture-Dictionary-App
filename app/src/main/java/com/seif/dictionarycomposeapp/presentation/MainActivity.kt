@@ -26,55 +26,62 @@ class MainActivity : ComponentActivity() {
             DictionaryComposeAppTheme {
                 // A surface container using the 'background' color from the theme
                 val viewModel: WordInfoViewModel = hiltViewModel()
-                val state = viewModel.state.value
-                val scaffoldState = rememberScaffoldState()
 
-                // we will need it to listen to this events from the event flow that we have in viewModel
-                LaunchedEffect(key1 = true) {
-                    viewModel.eventFlow.collectLatest { event ->
-                        when (event) {
-                            is WordInfoViewModel.UIEvent.ShowSnackBar -> {
-                                scaffoldState.snackbarHostState.showSnackbar(event.message)
-                            }
+                DictionaryHomeDesign(viewModel)
+            }
+        }
+    }
+}
+
+@Composable
+fun DictionaryHomeDesign(
+    viewModel: WordInfoViewModel
+) {
+    val state = viewModel.state.value
+    val scaffoldState = rememberScaffoldState()
+    // we will need it to listen to this events from the event flow that we have in viewModel
+    LaunchedEffect(key1 = true) {
+        viewModel.eventFlow.collectLatest { event ->
+            when (event) {
+                is WordInfoViewModel.UIEvent.ShowSnackBar -> {
+                    scaffoldState.snackbarHostState.showSnackbar(event.message)
+                }
+            }
+        }
+    }
+    Scaffold(scaffoldState = scaffoldState) {
+        Box(modifier = Modifier.
+        background(MaterialTheme.colors.background)) {
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(16.dp)
+            ) {
+                TextField(
+                    value = viewModel.searchQuery.value,
+                    onValueChange = viewModel::onSearch,
+                    modifier = Modifier.fillMaxWidth(),
+                    placeholder = {
+                        Text(text = "Search...")
+                    }
+                )
+                Spacer(modifier = Modifier.height(16.dp))
+
+                LazyColumn(modifier = Modifier.fillMaxSize()) {
+                    items(state.wordInfoItems.size) { index ->
+                        val wordInfo = state.wordInfoItems[index]
+                        if (index > 0) {
+                            Spacer(modifier = Modifier.height(8.dp))
+                        }
+                        WordInfoItem(wordInfo = wordInfo)
+                        if (index < state.wordInfoItems.size - 1) {
+                            Divider()
                         }
                     }
                 }
-                Scaffold(scaffoldState = scaffoldState) {
-                    Box(modifier = Modifier.
-                    background(MaterialTheme.colors.background)) {
-                        Column(
-                            modifier = Modifier
-                                .fillMaxSize()
-                                .padding(16.dp)
-                        ) {
-                            TextField(
-                                value = viewModel.searchQuery.value,
-                                onValueChange = viewModel::onSearch,
-                                modifier = Modifier.fillMaxWidth(),
-                                placeholder = {
-                                    Text(text = "Search...")
-                                }
-                            )
-                            Spacer(modifier = Modifier.height(16.dp))
-
-                            LazyColumn(modifier = Modifier.fillMaxSize()) {
-                                items(state.wordInfoItems.size) { index ->
-                                    val wordInfo = state.wordInfoItems[index]
-                                    if (index > 0) {
-                                        Spacer(modifier = Modifier.height(8.dp))
-                                    }
-                                    WordInfoItem(wordInfo = wordInfo)
-                                    if (index < state.wordInfoItems.size - 1) {
-                                        Divider()
-                                    }
-                                }
-                            }
-                        }
-                        if (state.isLoading){
-                            CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
-                        }
-                    }
-                }
+            }
+            if (state.isLoading){
+                CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
             }
         }
     }
@@ -85,5 +92,7 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun DefaultPreview() {
     DictionaryComposeAppTheme {
+        val viewModel: WordInfoViewModel = hiltViewModel()
+        DictionaryHomeDesign(viewModel)
     }
 }
